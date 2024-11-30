@@ -8,10 +8,10 @@ using cstr = const char*;
 using str = std::string;
 
 template<typename T>
-using Unique = std::unique_ptr<T>;
+using std::unique_ptr = std::std::unique_ptr_ptr<T>;
 
 template<typename T>
-using Shared = std::shared_ptr<T>;
+using std::shared_ptr = std::shared_ptr<T>;
 
 class DuplicatingPoint : public Point {
 protected:

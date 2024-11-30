@@ -7,17 +7,17 @@ DuplicatingPoint::DuplicatingPoint(int duplicationAmount)
 
 void DuplicatingPoint::createDuplicates() {
     // Holds the position of the current duplicated point's parent
-    Shared<Point> currentParent = sharedFromThis();
+    std::shared_ptr<Point> currentParent = sharedFromThis();
 
     // Holds the original children owned by this point (as in, before duplication)
-    auto originalChildren = std::vector<Unique<Point>>();
+    auto originalChildren = std::vector<std::unique_ptr<Point>>();
     for (const auto& child : children) {
         originalChildren.push_back(child->clone());
     }
 
     for (int i = 0; i < this->duplicationAmount; i++) {
         // The i'th added duplicate point
-        Unique<Point> newPoint = std::make_unique<Point>();
+        std::unique_ptr<Point> newPoint = std::make_unique<Point>();
         
         // Set currentParent as the parent of the new Point
         newPoint->setParent(currentParent);

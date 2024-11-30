@@ -17,7 +17,7 @@ void TransformingPoint::useSibling(const std::function<void(Point &)> &callback)
     }
 }
 
-void TransformingPoint::addChild(const Unique<Point>& child) {
+void TransformingPoint::addChild(const std::unique_ptr<Point>& child) {
     // Copy of the child by creating a new Point
     auto childCopy = std::make_unique<Point>(*child);
 

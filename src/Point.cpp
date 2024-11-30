@@ -66,7 +66,7 @@ Point& Point::operator=(Point&& other) noexcept {
     return *this;
 }
 
-Unique<Point> Point::clone() const
+std::unique_ptr<Point> Point::clone() const
 {
     return std::make_unique<Point>(*this);
 }
@@ -75,33 +75,33 @@ int Point::getId() const {
     return id;
 }
 
-void Point::setParent(const Shared<Point>& parent) {
+void Point::setParent(const std::shared_ptr<Point>& parent) {
     this->parent = parent;
 }
 
-Shared<Point> Point::getParent() const {
+std::shared_ptr<Point> Point::getParent() const {
 	return parent;
 }
 
-void Point::addChild(const Unique<Point>& child) {
+void Point::addChild(const std::unique_ptr<Point>& child) {
     children.push_back(std::move(child));
 }
 
-void Point::removeChild(Unique<Point> child) {
+void Point::removeChild(std::unique_ptr<Point>& child) {
     // Find and remove the child
     auto it = std::remove_if(children.begin(), children.end(),
-        [&child](const Unique<Point>& ptr) { return ptr.get() == child.get(); });
+        [&child](const std::unique_ptr<Point>& ptr) { return ptr.get() == child.get(); });
 
     if (it != children.end()) {
         children.erase(it, children.end());  // Remove the child from the vector
     }
 }
 
-const Vec<Unique<Point>>& Point::getChildren() const {
+const std::vector<std::unique_ptr<Point>>& Point::getChildren() const {
     return children;
 }
 
-void Point::establishParentChildRelationship(Shared<Point> parent, Unique<Point>& child) {
+void Point::establishParentChildRelationship(std::shared_ptr<Point> parent, std::unique_ptr<Point>& child) {
     child->setParent(parent);
     parent->addChild(child);
 }

@@ -3,23 +3,11 @@
 #include <vector>
 #include <memory>
 
-using cstr = const char*;
-using str = std::string;
-
-template<typename T>
-using Unique = std::unique_ptr<T>;
-
-template<typename T>
-using Shared = std::shared_ptr<T>;
-
-template<typename T>
-using Vec = std::vector<T>;
-
 class Point : std::enable_shared_from_this<Point> {
 protected:
 	int id;
-	Shared<Point> parent;
-	Vec<Unique<Point>> children;
+	std::shared_ptr<Point> parent;
+	std::vector<std::unique_ptr<Point>> children;
 
 public:
 	/** Used as a counter for point ID incrementing */
@@ -33,7 +21,7 @@ public:
 	Point& operator=(Point&&) noexcept;   // Move assignment operator
 
 	// Virtual clone method for polymorphic behavior
-	virtual Unique<Point> clone() const;
+	virtual std::unique_ptr<Point> clone() const;
 
 	// Exposes shared_from_this
 	std::shared_ptr<Point> sharedFromThis() {
@@ -47,29 +35,29 @@ public:
 	 * Sets the parent for a point
 	 * @param parent a shared pointer to the parent node 
 	 */
-	void setParent(const Shared<Point>& parent);
+	void setParent(const std::shared_ptr<Point>& parent);
 
-	Shared<Point> getParent() const;
+	std::shared_ptr<Point> getParent() const;
 
 	/**
 	 * Adds a child point to the point.
-	 * @param child a unique pointer to the child node 
+	 * @param child a std::unique_ptr pointer to the child node 
 	 */
-	void addChild(const Unique<Point>& child);
+	void addChild(const std::unique_ptr<Point>& child);
 
 	/**
 	 * Removes a child from the point, if it exists.
 	 * Deletes the child and all of its children.
-	 * @param child a unique pointer to the child node 
+	 * @param child a std::unique_ptr pointer to the child node 
 	 */
-	void removeChild(Unique<Point> child);
+	void removeChild(std::unique_ptr<Point>& child);
 
 	/**
-	 * Returns a vector of unique pointers to all children of this point.
+	 * Returns a vector of std::unique_ptr pointers to all children of this point.
 	 */
-	const Vec<Unique<Point>>& getChildren() const;
+	const std::vector<std::unique_ptr<Point>>& getChildren() const;
 
-	static void establishParentChildRelationship(Shared<Point> parent, Unique<Point>& child);
+	static void establishParentChildRelationship(std::shared_ptr<Point> parent, std::unique_ptr<Point>& child);
 
-	str toString() const;
+	std::string toString() const;
 };
