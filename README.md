@@ -1,4 +1,7 @@
-# The Long-Term Goal
+# Data Structure
+intro text
+
+## The Long-Term Goal
 Make a data structure that can be used to quickly generate procedural maps with some amount of translational and reflectional symmetry, with hopes of making more architecturally convincing maps.
 
 The goal is to use this as an abstraction layer for organizing the space in the most conceptual way possible. 
