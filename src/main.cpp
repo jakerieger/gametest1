@@ -21,12 +21,11 @@ int main() {
     std::cout << parent->toString() << '\n';
 
     // Cloning
-    const auto parentClone      = parent->clone();
-    const auto parentCloneTyped = parentClone->As<NormalPoint>();
-    std::cout << parentCloneTyped->toString() << '\n';
+    const Shared<IPoint> parentClone = parent->clone();
+    std::cout << parentClone->toString() << '\n';
 
     // Cloning with specific type
-    const auto parentCloneAs = parent->cloneAs<NormalPoint>();
+    const Shared<NormalPoint> parentCloneAs = parent->cloneAs<NormalPoint>();
     std::cout << parentCloneAs->toString() << '\n';
 
     return 0;
