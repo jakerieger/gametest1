@@ -121,7 +121,7 @@ public:
 
     template<Point T, typename... Args>
     static Shared<IPoint> Create(Args&&... args) {
-        return std::make_unique<T>(std::forward<Args>(args)...);
+        return std::make_shared<T>(std::forward<Args>(args)...);
     }
 
     Shared<IPoint> clone() {
