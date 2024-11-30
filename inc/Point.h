@@ -113,19 +113,25 @@ public:
     }
 
     // Provide an easy method of converting to a subclass of IPoint
-    // ex:
-    // IPoint myPoint = new ReflectionPoint();
-    // ReflectionPoint refPoint = myPoint->As<ReflectionPoint>();
-    //
     // Sorry not sorry for pascal case 🤷‍♂️
     template<Point T>
-    T* As() {
-        return DCAST<T*>(this);
+    Shared<T> As() {
+        return std::dynamic_pointer_cast<T>(shared_from_this());
     }
 
     template<Point T, typename... Args>
     static Shared<IPoint> Create(Args&&... args) {
         return std::make_unique<T>(std::forward<Args>(args)...);
+    }
+
+    Shared<IPoint> clone() {
+        return shared_from_this();
+    }
+
+    template<Point T>
+    Shared<T> cloneAs() {
+        const auto ptr = clone();
+        return ptr->As<T>();
     }
 
 protected:

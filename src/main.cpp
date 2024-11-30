@@ -20,6 +20,15 @@ int main() {
 
     std::cout << parent->toString() << '\n';
 
+    // Cloning
+    const auto parentClone      = parent->clone();
+    const auto parentCloneTyped = parentClone->As<NormalPoint>();
+    std::cout << parentCloneTyped->toString() << '\n';
+
+    // Cloning with specific type
+    const auto parentCloneAs = parent->cloneAs<NormalPoint>();
+    std::cout << parentCloneAs->toString() << '\n';
+
     return 0;
 }
 
