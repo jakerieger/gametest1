@@ -13,7 +13,7 @@ Certain features like ```ReflectionPoint``` and ```DuplicationPoint``` will requ
 - Data is organized into points
 - Points can have many children (may be limited later)
 - Points can only have one parent (may change also)
-- Certain specialized points have "siblings" which are meant to carry the same data as the point that creates the duplicate. In rendering phases, this will be used to create "wings" and other mirrored layouts.
+- Certain specialized points have "siblings" which are meant to mock the structure of the point that creates it. In rendering phases, this will be used to create "wings" and other mirrored layouts.
 - Certain other points have the ability to duplicate themselves, attaching a number of duplicates to themselves to create segmented repeating structures, like hallways with multiple exits.
 - Directionality isn't meant to be implemented in this layer, but in general, each point will have a direction defined by the vector created between itself and its parent.
 - Any duplications will append along these vectors, and any reflected objects will place themselves orthogonal to this vector.
